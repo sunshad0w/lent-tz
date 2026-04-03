@@ -23,7 +23,7 @@ export function useLogin() {
     mutationFn: (data: LoginData) => authService.login(data),
     onSuccess: (response) => {
       setAccessToken(response.accessToken);
-      navigate('/profile');
+      navigate('/feed');
     },
     onError: (error) => {
       notifications.show({
@@ -43,7 +43,7 @@ export function useRegister() {
     mutationFn: (data: RegisterData) => authService.register(data),
     onSuccess: (response) => {
       setAccessToken(response.accessToken);
-      navigate('/profile');
+      navigate('/feed');
     },
     onError: (error) => {
       notifications.show({

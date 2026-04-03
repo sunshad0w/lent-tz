@@ -97,14 +97,12 @@ export class AuthService {
 
     const userId = this.extractUserIdFromExpiredToken(accessToken);
 
-    if (!userId) {
-      throw new UnauthorizedException('Невалидный access-токен');
-    }
-
-    const records = await this.refreshTokenRepository.find({
-      where: { userId },
-      relations: ['user'],
-    });
+    const records = userId
+      ? await this.refreshTokenRepository.find({
+          where: { userId },
+          relations: ['user'],
+        })
+      : await this.refreshTokenRepository.find({ relations: ['user'] });
 
     let matchedToken: RefreshToken | null = null;
     for (const record of records) {
